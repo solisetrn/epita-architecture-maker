@@ -1,1 +1,15 @@
-# Architecture Maker for EPITA Practicals 
+## Architecture Maker for EPITA Practicals
+
+# Expected functionnalities:
+
+1. Opening an input file in which the architecture is pasted
+2. Ignoring newlines before architecture
+3. Creating an AST to create an architecture
+4. Execute commands (ls, mkdir) via the executable ArchiMaker
+5. Compile the project with NO memory leak
+
+# Bonus functionnalities:
+
+1. Creating an input file if not already present
+2. Opening any desired file through -f flag
+3. Displaying a helper through -h or --help flags
