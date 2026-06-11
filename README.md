@@ -1,1 +1,1 @@
-# epita-architecture-maker
+# Architecture Maker for EPITA Practicals 
