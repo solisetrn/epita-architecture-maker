@@ -56,3 +56,4 @@ dkms.conf
 
 # MORE
 *.swp
+*/test.c
