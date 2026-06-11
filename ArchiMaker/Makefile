@@ -10,5 +10,10 @@ all: ${FILES}
 debug: ${FILES}
 	${CC} ${FILES} -o debug ${CFLAGS} ${DEBUG}
 
+save:
+	git add -A
+	git commit -m "save"
+	git push
+
 clean:
 	${RM} *.o ArchiMaker debug
