@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+// tree_manager.c
 enum type {
     DIRECTORY, // == 0
     FILENAME // == 1
@@ -20,8 +21,8 @@ struct tree {
     struct tree **children;
 };
 
-// tree_manager.c
 struct tree *init_tree(enum type type, char *name);
+int add_child(struct tree *root, struct tree *child);
 void destroy_tree(struct tree *root);
 
 #endif
