@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 DEBUG = -fsanitize=address
-FILES = main.o tree_manager.o
+FILES = main.o tree_manager.o pretty_printer.o
 RM = rm -f
 
 all: ${FILES}
@@ -9,11 +9,6 @@ all: ${FILES}
 
 debug: ${FILES}
 	${CC} ${FILES} -o debug ${CFLAGS} ${DEBUG}
-
-save:
-	git add -A
-	git commit -m "save"
-	git push
 
 clean:
 	${RM} *.o ArchiMaker debug
