@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 DEBUG = -fsanitize=address
-FILES = main.o tree_manager.o pretty_printer.o
+FILES = main.o tree_manager.o parser.o
 RM = rm -f
 
 all: ${FILES}
@@ -12,3 +12,4 @@ debug: ${FILES}
 
 clean:
 	${RM} *.o ArchiMaker debug
+	clear

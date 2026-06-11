@@ -17,6 +17,9 @@ struct tree *init_tree(enum type type, char *name) {
 
 int add_child(struct tree *root, struct tree *child) {
 
+    if (root->childN == 0)
+        root->type = DIRECTORY;
+
    root->children = realloc(root->children, (root->childN + 1) * sizeof(struct tree));
    if (!root->children) {
        fprintf(stderr, "Error while adding child to node: %s. Abort.\n", root->name);

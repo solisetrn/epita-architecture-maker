@@ -8,23 +8,10 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-// pretty_printer.c
-struct node {
-    struct tree *data;
-    struct node *next;
-};
-
-struct queue {
-    struct node *head;
-};
-
-int enqueue(struct queue *q, struct tree *root);
-struct tree *dequeue(struct queue *q);
-
 // tree_manager.c
 enum type {
-    DIRECTORY, // == 0
-    FILENAME // == 1
+    FILENAME, // == 0
+    DIRECTORY // == 1
 };
 
 struct tree {
@@ -37,5 +24,31 @@ struct tree {
 struct tree *init_tree(enum type type, char *name);
 int add_child(struct tree *root, struct tree *child);
 void destroy_tree(struct tree *root);
+
+// parser.c
+enum arg_type {
+    HELP, // -h, --help
+    OPEN, // -f
+    FNAME // <filename>
+};
+
+struct arg { // NODES
+    enum arg_type type;
+    char *data;
+    struct arg *next;
+};
+
+struct cmd { // LINKED LIST
+    struct arg *head;
+    struct arg *tail;
+};
+
+void cmd_append(struct cmd *cmd, struct arg *arg);
+void destroy_args(struct arg *arg);
+void destroy_cmd(struct cmd *cmd);
+struct cmd *parse_command(int argc, char *argv[]);
+
+// main.c
+void display_helper();
 
 #endif
