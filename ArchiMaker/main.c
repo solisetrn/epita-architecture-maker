@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
         }
 
     }
-
+    // default behavior
     else {
         file = fopen(filename, "r");
         if (!file) {
