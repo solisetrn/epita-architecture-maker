@@ -47,6 +47,7 @@ void cmd_append(struct cmd *cmd, struct arg *arg);
 void destroy_args(struct arg *arg);
 void destroy_cmd(struct cmd *cmd);
 struct cmd *parse_command(int argc, char *argv[]);
+char *get_name(char *line);
 void print_cmd(struct cmd *cmd); //  DEBUG function
 
 // main.c

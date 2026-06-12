@@ -8,8 +8,11 @@ void display_helper() {
     fflush(stdout);
     fprintf(stdout, "\t\t-h, --help    displays the helper.\n");
     fflush(stdout);
-    fprintf(stdout, "\t\t-f <filename> to change the make config file, \"Archifile\" by default\n");
+    fprintf(stdout, "\t\t-f <filename> to change the make config file, \"Archifile\" by default.\n");
     fflush(stdout);
+    fprintf(stdout, "\t                      If no file name 'Archifile' is found and no target is specified, ArchiMaker will create an empty one.\n");
+    fflush(stdout);
+    fprintf(stdout, "\tIt is suggested that you move the 'ArchiMaker' binary to the root of your EPITA Practical repository.\n");
 
 }
 
@@ -30,6 +33,8 @@ int main(int argc, char *argv[]) {
         }    
         curr = curr->next;   
     }
+
+
 
     // opening the file
     char *filename = NULL;
@@ -60,9 +65,17 @@ int main(int argc, char *argv[]) {
 
         file = fopen("Archifile", "r");
         if (!file) {
-            fprintf(stderr, "ArchiMaker: No target file specified and no Archifile found. Abort.\n");
+            fprintf(stdout, "Archimaker: No target file specified and Archifile not found.\n");
+            fprintf(stdout, "Creating Archifile...\n");
+            file = fopen("Archifile", "w");
+            if (!file) {
+                fprintf(stderr, "Couldn't create 'Archifile' file. Abort.\n");
+                return 1;
+            }
+            fprintf(stdout, "'Archifile' created!\n");
+            fclose(file);
             destroy_cmd(cmd);
-            return 1;
+            return 2; // returns 2 in case of no Archifile but creates one successfully
         }
 
     }
@@ -76,6 +89,21 @@ int main(int argc, char *argv[]) {
             return 1;
         }
     }
+
+
+
+    // file parsing and AST creation
+
+    size_t n = 0;
+    char *line = NULL;
+    while (getline(&line, &n, file) != -1) {
+        char *s = get_name(line);
+        printf("%s\n", s);
+        free(s);
+    }
+        
+
+    free(line);
 
     // MEMLEAK MANAGEMENT
     if (cmd)

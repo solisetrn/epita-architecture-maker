@@ -35,7 +35,7 @@ struct cmd *parse_command(int argc, char *argv[]) {
 
     struct cmd *cmd = calloc(1, sizeof(struct cmd));
     if (!cmd) {
-        fprintf(stderr, "Encountered an error while allocating memory for object: struct cmd. Abort.\n");
+        fprintf(stderr, "Failed to allocate memory for object: struct cmd. Abort.\n");
         return NULL;
     }
 
@@ -44,7 +44,7 @@ struct cmd *parse_command(int argc, char *argv[]) {
 
         struct arg *node = calloc(1, sizeof(struct arg));
         if (!node) {
-            fprintf(stderr, "Encountered an error while allocating memory for object: struct arg. Abort.\n");
+            fprintf(stderr, "Failed to allocate memory for object: struct arg. Abort.\n");
             destroy_cmd(cmd);
             return NULL;
         }
@@ -73,6 +73,35 @@ struct cmd *parse_command(int argc, char *argv[]) {
     }
 
     return cmd;
+
+}
+
+char *get_name(char *line) {
+
+    size_t i = 0;
+    while (line[i] != '.' && !('a' <= line[i] && line[i] <= 'z') && !('A' <= line[i] && line[i] <= 'Z') && line[i] != '\n' && line[i] != '\0') // hi don't mind me
+        i++;
+
+    char *out = NULL;
+    size_t j = 0;
+    while (line[i] != '\n') {
+        out = realloc(out, (j + 1) * sizeof(char));
+        if (!out) {
+            fprintf(stderr, "Failed to allocate memory in get_name(line). Abort.\n");
+            return NULL;
+        }
+        out[j] = line[i];
+        j++;
+        i++;
+    }
+
+    out = realloc(out, (j + 1) * sizeof(char));
+    if (!out) {
+        fprintf(stderr, "Failed to allocate memory in get_name(line). Abort.\n");
+        return NULL;
+    }
+    out[j] = '\0';
+    return out;
 
 }
 

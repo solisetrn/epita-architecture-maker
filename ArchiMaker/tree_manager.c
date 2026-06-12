@@ -4,7 +4,7 @@ struct tree *init_tree(enum type type, char *name) {
 
     struct tree *out = calloc(1, sizeof(struct tree));
     if (!out) {
-        fprintf(stderr, "Error while allocating memory for object: struct tree. Abort.\n");
+        fprintf(stderr, "Failed to allocate memory for object: struct tree. Abort.\n");
         return NULL;
     }
 
@@ -22,7 +22,7 @@ int add_child(struct tree *root, struct tree *child) {
 
    root->children = realloc(root->children, (root->childN + 1) * sizeof(struct tree));
    if (!root->children) {
-       fprintf(stderr, "Error while adding child to node: %s. Abort.\n", root->name);
+       fprintf(stderr, "Couldn't add child to node: %s. Abort.\n", root->name);
        return 1;
    }
 
