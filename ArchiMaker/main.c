@@ -20,6 +20,8 @@ int main(int argc, char *argv[]) {
         // error message handled by the function
         return 1;
 
+    print_cmd(cmd);
+
     return 0;
 
 }

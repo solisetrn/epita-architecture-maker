@@ -75,3 +75,25 @@ struct cmd *parse_command(int argc, char *argv[]) {
     return cmd;
 
 }
+
+void print_cmd(struct cmd *cmd) {
+
+    if (!cmd->head) {
+        fprintf(stdout, "list is empty.\n");
+        fflush(stdout);
+        return;
+    }
+
+    struct arg *curr = cmd->head;
+    fprintf(stdout, "%s", curr->data);
+    fflush(stdout);
+    curr = curr->next;
+
+    while (curr) {
+        fprintf(stdout, " -> %s", curr->data);
+        curr = curr->next;
+    }
+
+    putchar('\n');
+
+}
