@@ -29,7 +29,7 @@ void destroy_tree(struct tree *root);
 enum arg_type {
     HELP, // -h, --help
     OPEN, // -f
-    FNAME // <filename>
+    STR // anything that's not a flag (doesn't start with '-')
 };
 
 struct arg { // NODES

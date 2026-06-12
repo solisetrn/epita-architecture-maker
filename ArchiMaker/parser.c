@@ -63,7 +63,7 @@ struct cmd *parse_command(int argc, char *argv[]) {
                 return NULL;
             }
             else
-                node->type = FNAME;
+                node->type = STR;
         }
 
         cmd_append(cmd, node);
