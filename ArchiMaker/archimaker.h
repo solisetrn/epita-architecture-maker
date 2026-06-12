@@ -21,7 +21,7 @@ struct tree {
     struct tree **children;
 };
 
-struct tree *init_tree(enum type type, char *name);
+struct tree *init_tree(char *name);
 int add_child(struct tree *root, struct tree *child);
 void destroy_tree(struct tree *root);
 

@@ -11,5 +11,5 @@ debug: ${FILES}
 	${CC} ${FILES} -o debug ${CFLAGS} ${DEBUG}
 
 clean:
-	${RM} *.o ArchiMaker debug
+	${RM} *.o ArchiMaker debug Archifile
 	clear

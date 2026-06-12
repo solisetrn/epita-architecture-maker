@@ -1,14 +1,12 @@
 #include "archimaker.h"
 
-struct tree *init_tree(enum type type, char *name) {
+struct tree *init_tree(char *name) {
 
     struct tree *out = calloc(1, sizeof(struct tree));
     if (!out) {
         fprintf(stderr, "Failed to allocate memory for object: struct tree. Abort.\n");
         return NULL;
     }
-
-    out->type = type;
     out->name = name;
 
     return out;
