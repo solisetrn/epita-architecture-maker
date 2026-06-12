@@ -10,7 +10,7 @@ void display_helper() {
     fflush(stdout);
     fprintf(stdout, "\t\t-f <filename> to change the make config file, \"Archifile\" by default.\n");
     fflush(stdout);
-    fprintf(stdout, "\t                      If no file name 'Archifile' is found and no target is specified, ArchiMaker will create an empty one.\n");
+    fprintf(stdout, "\t                      If no file named 'Archifile' is found and no target is specified, ArchiMaker will create an empty one.\n");
     fflush(stdout);
     fprintf(stdout, "\tIt is suggested that you move the 'ArchiMaker' binary to the root of your EPITA Practical repository.\n");
 
