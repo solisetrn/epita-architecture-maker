@@ -43,6 +43,7 @@ struct tree *init_tree(char *name);
 int add_child(struct tree *root, struct tree *child);
 struct tree *convert_to_tree(struct file_list *l);
 void destroy_tree(struct tree *root);
+void print_tree(struct tree *root); // DEBUG function
 
 // parser.c
 enum arg_type {

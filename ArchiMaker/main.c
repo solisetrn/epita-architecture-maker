@@ -150,6 +150,8 @@ int main(int argc, char *argv[]) {
     if (!AST)
         return 1;
 
+    // print_tree(AST);
+
     // MEMORY MANAGEMENT
     destroy_tree(AST);
     fclose(file);

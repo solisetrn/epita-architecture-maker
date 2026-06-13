@@ -147,3 +147,32 @@ void destroy_tree(struct tree *root) {
     free(root);
 
 }
+
+void print_tree(struct tree *root) {
+
+    if (!root)
+        return;
+
+    char *type[2] = { "file", "directory" };
+    fprintf(stdout, "'%s' %s:\n", root->name, type[root->type]);
+    fflush(stdout);
+
+    if (root->childN == 0) {
+        fprintf(stdout, "(leaf)\n\n");
+        fflush(stdout);
+        return;
+    }
+    else {
+        fprintf(stdout, "[%s]", root->children[0]->name);
+        for (size_t i = 1; i < root->childN; i++) {
+            fprintf(stdout, ", [%s]", root->children[i]->name);
+            fflush(stdout);
+        }
+    }
+    fprintf(stdout, "\n\n");
+    fflush(stdout);
+
+    for (size_t i = 0; i < root->childN; i++)
+        print_tree(root->children[i]);
+
+}
