@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
                 filename = strdup(curr->next->data);
             }
             else {
-                fprintf(stderr, "ArchiMaker: option '-f' requires and argument <filename>. Abort.\n");
+                fprintf(stderr, "ArchiMaker: *** Option '-f' requires and argument <filename>. Abort.\n");
                 fflush(stderr);
                 if (filename)
                     free(filename);
@@ -72,13 +72,13 @@ int main(int argc, char *argv[]) {
 
         file = fopen("Archifile", "r");
         if (!file) {
-            fprintf(stdout, "Archimaker: No target file specified and Archifile not found.\n");
+            fprintf(stdout, "Archimaker: *** No target file specified and Archifile not found.\n");
             fflush(stdout);
             fprintf(stdout, "Creating Archifile...\n");
             fflush(stdout);
             file = fopen("Archifile", "w");
             if (!file) {
-                fprintf(stderr, "Couldn't create 'Archifile' file. Abort.\n");
+                fprintf(stderr, "ArchiMaker: *** Couldn't create 'Archifile' file. Abort.\n");
                 fflush(stderr);
                 return 1;
             }
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
     else {
         file = fopen(filename, "r");
         if (!file) {
-            fprintf(stderr, "ArchiMaker: No file named %s. Abort.\n", filename);
+            fprintf(stderr, "ArchiMaker: *** No file named %s. Abort.\n", filename);
             fflush(stderr);
             free(filename);
             destroy_cmd(cmd);
@@ -112,7 +112,7 @@ int main(int argc, char *argv[]) {
 
     struct file_list *l = calloc(1, sizeof(struct file_list));
     if (!l) {
-        fprintf(stderr, "Failed to allocate memory for object: struct file_list. Abort.\n");
+        fprintf(stderr, "ArchiMaker: *** Failed to allocate memory for object: struct file_list. Abort.\n");
         fflush(stderr);
         return 1;
     }
@@ -149,12 +149,16 @@ int main(int argc, char *argv[]) {
     struct tree *AST = convert_to_tree(l);
     if (!AST)
         return 1;
+    AST->type = ROOT; // helps to ignore the root
 
-    // print_tree(AST);
+    make_items(AST, NULL); // literally builds EVERYTHING
 
     // MEMORY MANAGEMENT
     destroy_tree(AST);
     fclose(file);
+
+    fprintf(stdout, "\nAll done! Thanks for using ArchiMaker!\n");
+    fflush(stdout);
 
     return 0;
 

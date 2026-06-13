@@ -4,7 +4,7 @@ struct tree *init_tree(char *name) {
 
     struct tree *out = calloc(1, sizeof(struct tree));
     if (!out) {
-        fprintf(stderr, "Failed to allocate memory for object: struct tree. Abort.\n");
+        fprintf(stderr, "ArchiMaker: *** Failed to allocate memory for object: struct tree. Abort.\n");
         fflush(stderr);
         return NULL;
     }
@@ -16,12 +16,12 @@ struct tree *init_tree(char *name) {
 
 int add_child(struct tree *root, struct tree *child) {
 
-    if (root->childN == 0)
+    if (root->childN == FILENAME)
         root->type = DIRECTORY;
 
     root->children = realloc(root->children, (root->childN + 1) * sizeof(struct tree));
     if (!root->children) {
-        fprintf(stderr, "Couldn't add child to node: %s. Abort.\n", root->name);
+        fprintf(stderr, "ArchiMaker: Couldn't add child to node: %s. Abort.\n", root->name);
         fflush(stderr);
         return 1;
     }
@@ -54,7 +54,7 @@ struct tree *DFS(struct tree *root, char *name) {
 struct tree *convert_to_tree(struct file_list *l) {
 
     if (!l->head) { // empty dlist
-        fprintf(stderr, "Couldn't fetch the file architecture correctly, it must be pasted in 'Archifile' or a specified file using '-f'. Abort.\n");
+        fprintf(stderr, "ArchiMaker: *** Couldn't fetch the file architecture correctly, it must be pasted in 'Archifile' or a specified file using '-f'. Abort.\n");
         fflush(stderr);
         destroy_dlist(l);
         return NULL;
@@ -66,6 +66,7 @@ struct tree *convert_to_tree(struct file_list *l) {
         destroy_dlist(l);
         return NULL;
     }
+    root->type = ROOT;
 
     struct node *parent = l->head; // file with hierarchy code 0, should be 'epita-prepa-computer-science-prog-X0X-p-0X-20XX-firstname.lastname'
     struct node *curr = l->head->next; // since no other file is supposed to have a hierarchy code of 0, it's the second file (with code 1)
@@ -85,7 +86,7 @@ struct tree *convert_to_tree(struct file_list *l) {
             parent = parent->prev;
 
         if (!parent) {
-            fprintf(stderr, "Couldn't fetch parent of node '%s'. Abort.\n", curr->name);
+            fprintf(stderr, "ArchiMaker: *** Couldn't fetch parent of node '%s'. Abort.\n", curr->name);
             fflush(stderr);
             destroy_dlist(l);
             destroy_tree(root);
@@ -96,7 +97,7 @@ struct tree *convert_to_tree(struct file_list *l) {
         struct tree *temp = DFS(root, parent->name);
         if (!temp) { // negative search
             fprintf(stderr,
-                    "Couldn't fetch parent tree of tree '%s'. Abort.\nIf you see this message, this is VERY BAD, this is NOT supposed to happen in ANY case.\n",
+                    "ArchiMaker: *** Couldn't fetch parent tree of tree '%s'. Abort.\nIf you see this message, this is VERY BAD, this is NOT supposed to happen in ANY case.\n",
                     parent->name);
             fflush(stderr);
             destroy_dlist(l);
@@ -153,7 +154,7 @@ void print_tree(struct tree *root) {
     if (!root)
         return;
 
-    char *type[2] = { "file", "directory" };
+    char *type[3] = { "file", "directory", "root" };
     fprintf(stdout, "'%s' %s:\n", root->name, type[root->type]);
     fflush(stdout);
 

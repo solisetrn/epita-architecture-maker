@@ -29,7 +29,8 @@ void print_dlist(struct file_list *l); // DEBUG function
 // tree_manager.c
 enum type {
     FILENAME, // == 0
-    DIRECTORY // == 1
+    DIRECTORY, // == 1
+    ROOT // == 2
 };
 
 struct tree {
@@ -70,6 +71,9 @@ struct cmd *parse_command(int argc, char *argv[]);
 char *get_name(char *line);
 int get_hier(char *line);
 void print_cmd(struct cmd *cmd); //  DEBUG function
+
+// executer.c
+int make_items(struct tree *root, char *prefix);
 
 // main.c
 void display_helper();

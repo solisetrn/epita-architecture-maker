@@ -4,7 +4,7 @@ struct node *make_node(char *name, int hier) {
 
     struct node *out = calloc(1, sizeof(struct node));
     if (!out) {
-        fprintf(stderr, "Failed to allocate memory for object: struct node. Abort.\n");
+        fprintf(stderr, "ArchiMaker: *** Failed to allocate memory for object: struct node. Abort.\n");
         return NULL;
     }
 
