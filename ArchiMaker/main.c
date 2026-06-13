@@ -4,20 +4,25 @@ void display_helper() {
 
     fprintf(stdout, "Usage: ./ArchiMaker [options]\n");
     fflush(stdout);
-    fprintf(stdout, "\tOPTIONS:\n");
+
+    fprintf(stdout, "    OPTIONS:\n");
     fflush(stdout);
-    fprintf(stdout, "\t\t-h, --help    displays the helper.\n");
+    // -h, --help
+    fprintf(stdout, "        -h, --help            displays the helper.\n");
     fflush(stdout);
-    fprintf(stdout, "\t\t-f <filename> to change the make config file, \"Archifile\" by default.\n");
+    // -f
+    fprintf(stdout, "        -f <filename>         to change the architecture config file, 'Archifile' by default.\n");
     fflush(stdout);
-    fprintf(stdout, "\t                      If no file named 'Archifile' is found and no target is specified, ArchiMaker will create an fresh empty one.\n");
-    fflush(stdout);
-    fprintf(stdout, "\tIt is suggested that you move the 'ArchiMaker' binary to the root of your EPITA Practical repository.\n");
-    fflush(stdout);
-    fprintf(stdout, "\tArchimaker DOES create an empty 'README' file and empty '.gitignore' file for you. Don't forget to edit them later.\n");
+    fprintf(stdout, "                              If no file named 'Archifile' is found and no target is specified, ArchiMaker will create a fresh empty one.\n");
+    // -d, --dest
+    fprintf(stdout, "        -d, --dest <filename> to change the destination directory, working directory by default.\n");
     fflush(stdout);
 
-    fprintf(stdout, "\nArchiMaker was designed to handle error to some extent. However, it still assumes you pasted the given file architecture correctly.\n");
+    fflush(stdout);
+    fprintf(stdout, "\nArchimaker DOES create an empty 'README' file and empty '.gitignore' file for you. Don't forget to edit them later.\n");
+    fflush(stdout);
+
+    fprintf(stdout, "ArchiMaker was designed to handle error to some extent. However, it still assumes you pasted the given file architecture correctly.\n");
     fflush(stdout);
 
 }
