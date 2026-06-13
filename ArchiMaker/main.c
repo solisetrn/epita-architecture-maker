@@ -10,9 +10,15 @@ void display_helper() {
     fflush(stdout);
     fprintf(stdout, "\t\t-f <filename> to change the make config file, \"Archifile\" by default.\n");
     fflush(stdout);
-    fprintf(stdout, "\t                      If no file named 'Archifile' is found and no target is specified, ArchiMaker will create an empty one.\n");
+    fprintf(stdout, "\t                      If no file named 'Archifile' is found and no target is specified, ArchiMaker will create an fresh empty one.\n");
     fflush(stdout);
     fprintf(stdout, "\tIt is suggested that you move the 'ArchiMaker' binary to the root of your EPITA Practical repository.\n");
+    fflush(stdout);
+    fprintf(stdout, "\tArchimaker DOES create an empty 'README' file and empty '.gitignore' file for you. Don't forget to edit them later.\n");
+    fflush(stdout);
+
+    fprintf(stdout, "\nArchiMaker was designed to handle error to some extent. However, it still assumes you pasted the given file architecture correctly.\n");
+    fflush(stdout);
 
 }
 
@@ -50,6 +56,7 @@ int main(int argc, char *argv[]) {
             }
             else {
                 fprintf(stderr, "ArchiMaker: option '-f' requires and argument <filename>. Abort.\n");
+                fflush(stderr);
                 if (filename)
                     free(filename);
                 destroy_cmd(cmd);
@@ -66,13 +73,17 @@ int main(int argc, char *argv[]) {
         file = fopen("Archifile", "r");
         if (!file) {
             fprintf(stdout, "Archimaker: No target file specified and Archifile not found.\n");
+            fflush(stdout);
             fprintf(stdout, "Creating Archifile...\n");
+            fflush(stdout);
             file = fopen("Archifile", "w");
             if (!file) {
                 fprintf(stderr, "Couldn't create 'Archifile' file. Abort.\n");
+                fflush(stderr);
                 return 1;
             }
             fprintf(stdout, "'Archifile' created!\n");
+            fflush(stdout);
             fclose(file);
             destroy_cmd(cmd);
             return 2; // returns 2 in case of no Archifile but creates one successfully
@@ -84,32 +95,40 @@ int main(int argc, char *argv[]) {
         file = fopen(filename, "r");
         if (!file) {
             fprintf(stderr, "ArchiMaker: No file named %s. Abort.\n", filename);
+            fflush(stderr);
             free(filename);
             destroy_cmd(cmd);
             return 1;
         }
     }
+    // memleak prevention
+    if (filename)
+        free(filename);
 
 
 
     // file parsing and AST creation
 
+    struct file_list *l = calloc(1, sizeof(struct file_list));
+    if (!l) {
+        fprintf(stderr, "Failed to allocate memory for object: struct file_list. Abort.\n");
+        fflush(stderr);
+        return 1;
+    }
+
     size_t n = 0;
     char *line = NULL;
     while (getline(&line, &n, file) != -1) {
-        char *s = get_name(line);
-        printf("%s, hierarchy rank: %d\n", s, get_hier(line));
-        free(s);
+        if (strcmp(line, "\n") != 0)
+            dlist_append(l, make_node(get_name(line), get_hier(line)));
     }
-        
-
     free(line);
 
     // MEMLEAK MANAGEMENT
     if (cmd)
         destroy_cmd(cmd);
-    if (filename)
-        free(filename);
+    if (l)
+        destroy_dlist(l);
     fclose(file);
 
     return 0;

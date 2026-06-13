@@ -8,6 +8,24 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+// dlist_manager.c
+struct node {
+    int hier;
+    char *name;
+    struct node *prev;
+    struct node *next;
+};
+
+struct file_list {
+    struct node *head;
+    struct node *tail;
+};
+
+struct node *make_node(char *name, int hier);
+void dlist_append(struct file_list *l, struct node *node);
+void destroy_dlist(struct file_list *l);
+void print_dlist(struct file_list *l); // DEBUG function
+
 // tree_manager.c
 enum type {
     FILENAME, // == 0
@@ -23,6 +41,7 @@ struct tree {
 
 struct tree *init_tree(char *name);
 int add_child(struct tree *root, struct tree *child);
+struct tree *parse_file(struct file_list *l);
 void destroy_tree(struct tree *root);
 
 // parser.c

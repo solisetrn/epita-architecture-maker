@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 DEBUG = -fsanitize=address
-FILES = main.o tree_manager.o parser.o
+FILES = main.o tree_manager.o parser.o dlist_manager.o
 RM = rm -f
 
 all: ${FILES}

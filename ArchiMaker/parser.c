@@ -36,6 +36,7 @@ struct cmd *parse_command(int argc, char *argv[]) {
     struct cmd *cmd = calloc(1, sizeof(struct cmd));
     if (!cmd) {
         fprintf(stderr, "Failed to allocate memory for object: struct cmd. Abort.\n");
+        fflush(stderr);
         return NULL;
     }
 
@@ -45,6 +46,7 @@ struct cmd *parse_command(int argc, char *argv[]) {
         struct arg *node = calloc(1, sizeof(struct arg));
         if (!node) {
             fprintf(stderr, "Failed to allocate memory for object: struct arg. Abort.\n");
+            fflush(stderr);
             destroy_cmd(cmd);
             return NULL;
         }
@@ -58,6 +60,7 @@ struct cmd *parse_command(int argc, char *argv[]) {
         else {
             if (argv[i][0] == '-') {
                 fprintf(stderr, "*** ArchiMaker: Error. Invalid option '%s'.\n", argv[i]);
+                fflush(stderr);
                 destroy_cmd(cmd);
                 display_helper();
                 return NULL;
@@ -88,6 +91,7 @@ char *get_name(char *line) {
         out = realloc(out, (j + 1) * sizeof(char));
         if (!out) {
             fprintf(stderr, "Failed to allocate memory in get_name(line). Abort.\n");
+            fflush(stderr);
             return NULL;
         }
         out[j] = line[i];
@@ -98,6 +102,7 @@ char *get_name(char *line) {
     out = realloc(out, (j + 1) * sizeof(char));
     if (!out) {
         fprintf(stderr, "Failed to allocate memory in get_name(line). Abort.\n");
+        fflush(stderr); 
         return NULL;
     }
     out[j] = '\0';
@@ -135,6 +140,7 @@ void print_cmd(struct cmd *cmd) {
 
     while (curr) {
         fprintf(stdout, " -> %s", curr->data);
+        fflush(stdout);
         curr = curr->next;
     }
 

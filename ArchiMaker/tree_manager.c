@@ -5,6 +5,7 @@ struct tree *init_tree(char *name) {
     struct tree *out = calloc(1, sizeof(struct tree));
     if (!out) {
         fprintf(stderr, "Failed to allocate memory for object: struct tree. Abort.\n");
+        fflush(stderr);
         return NULL;
     }
     out->name = name;
@@ -21,6 +22,7 @@ int add_child(struct tree *root, struct tree *child) {
    root->children = realloc(root->children, (root->childN + 1) * sizeof(struct tree));
    if (!root->children) {
        fprintf(stderr, "Couldn't add child to node: %s. Abort.\n", root->name);
+       fflush(stderr);
        return 1;
    }
 
@@ -30,6 +32,8 @@ int add_child(struct tree *root, struct tree *child) {
    return 0;
 
 }
+
+struct tree *parse_file(struct file_list *l);
 
 void destroy_tree(struct tree *root) {
 
