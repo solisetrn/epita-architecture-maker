@@ -7,6 +7,17 @@ char *add_path(char *prefix, char *filename) {
 
     char *out = strdup(prefix);
     size_t i = strlen(out);
+    if (out[i - 1] == '/') {
+        out = realloc(out, i * sizeof(char));
+        if (!out) {
+            fprintf(stderr, "ArchiMaker: *** Failed to allocate memory in add_path(). Abort.\n");
+            fflush(stderr);
+            return NULL;
+        }
+        out[i - 1] = '\0';
+        i--;
+    }
+
     size_t j = 0;
 
     out = realloc(out, (i + 1) * sizeof(char));
@@ -96,7 +107,7 @@ int make_items(struct tree *root, char *prefix) {
 
     if (root->type == ROOT) {
         for (size_t i = 0; i < root->childN; i++) {
-            if (make_items(root->children[i], NULL) != 0)
+            if (make_items(root->children[i], prefix) != 0)
                 return 1;
         }
         return 0;

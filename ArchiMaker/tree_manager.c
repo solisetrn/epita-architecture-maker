@@ -66,7 +66,6 @@ struct tree *convert_to_tree(struct file_list *l) {
         destroy_dlist(l);
         return NULL;
     }
-    root->type = ROOT;
 
     struct node *parent = l->head; // file with hierarchy code 0, should be 'epita-prepa-computer-science-prog-X0X-p-0X-20XX-firstname.lastname'
     struct node *curr = l->head->next; // since no other file is supposed to have a hierarchy code of 0, it's the second file (with code 1)

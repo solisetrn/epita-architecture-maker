@@ -57,6 +57,9 @@ struct cmd *parse_command(int argc, char *argv[]) {
         else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0)
             node->type = HELP;
 
+        else if (strcmp(argv[i], "-d") == 0 || strcmp(argv[i], "--dest") == 0)
+            node->type = DEST;
+
         else {
             if (argv[i][0] == '-') {
                 fprintf(stderr, "ArchiMaker: *** Error. Invalid option '%s'.\n", argv[i]);

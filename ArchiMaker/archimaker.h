@@ -7,6 +7,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <dirent.h>
+#include <errno.h>
 
 // dlist_manager.c
 struct node {
@@ -50,6 +52,7 @@ void print_tree(struct tree *root); // DEBUG function
 enum arg_type {
     HELP, // -h, --help
     OPEN, // -f
+    DEST, // -d, --dest
     STR // anything that's not a flag (doesn't start with '-')
 };
 
