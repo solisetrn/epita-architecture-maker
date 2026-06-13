@@ -79,7 +79,8 @@ struct cmd *parse_command(int argc, char *argv[]) {
 char *get_name(char *line) {
 
     size_t i = 0;
-    while (line[i] != '.' && !('a' <= line[i] && line[i] <= 'z') && !('A' <= line[i] && line[i] <= 'Z') && line[i] != '\n' && line[i] != '\0') // hi don't mind me
+    while (line[i] != '.' && !('a' <= line[i] && line[i] <= 'z') &&
+            !('A' <= line[i] && line[i] <= 'Z') && line[i] != '\n' && line[i] != '\0') // hi don't mind me
         i++;
 
     char *out = NULL;
@@ -102,6 +103,17 @@ char *get_name(char *line) {
     }
     out[j] = '\0';
     return out;
+
+}
+
+size_t get_hier(char *line) {
+
+    size_t i = 0;
+    while (line[i] != '.' && !('a' <= line[i] && line[i] <= 'z') &&
+            !('A' <= line[i] && line[i] <= 'Z') && line[i] != '\n' && line[i] != '\0')
+        i++;
+ 
+    return i / 4;
 
 }
 
