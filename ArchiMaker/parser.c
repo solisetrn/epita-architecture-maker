@@ -79,8 +79,7 @@ struct cmd *parse_command(int argc, char *argv[]) {
 char *get_name(char *line) {
 
     size_t i = 0;
-    while (line[i] != '.' && !('a' <= line[i] && line[i] <= 'z') &&
-            !('A' <= line[i] && line[i] <= 'Z') && line[i] != '\n' && line[i] != '\0') // hi don't mind me
+    while (line[i] != '.' && !('a' <= line[i] && line[i] <= 'z') && !('A' <= line[i] && line[i] <= 'Z') && line[i] != '\n' && line[i] != '\0') // hi don't mind me
         i++;
 
     char *out = NULL;
@@ -106,14 +105,18 @@ char *get_name(char *line) {
 
 }
 
-size_t get_hier(char *line) {
+int get_hier(char *line) {
 
-    size_t i = 0;
-    while (line[i] != '.' && !('a' <= line[i] && line[i] <= 'z') &&
-            !('A' <= line[i] && line[i] <= 'Z') && line[i] != '\n' && line[i] != '\0')
+    int i = 0;
+    int space_count = 0;
+    while (line[i] != '.' && !('a' <= line[i] && line[i] <= 'z') && !('A' <= line[i] && line[i] <= 'Z') && line[i] != '\n' && line[i] != '\0') {
+        if (line[i] == ' ')
+            space_count++;
         i++;
- 
-    return i / 4;
+    }
+
+    // TW: weird and illogical formula
+    return (((i - space_count) / 3) + space_count) / 4; // the pipe-like characters used in the practicals are actually triple-characters (no idea why)
 
 }
 

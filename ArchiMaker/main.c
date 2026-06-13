@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
     char *line = NULL;
     while (getline(&line, &n, file) != -1) {
         char *s = get_name(line);
-        printf("%s, hierarchy rank: %zu\n", s, get_hier(line));
+        printf("%s, hierarchy rank: %d\n", s, get_hier(line));
         free(s);
     }
         

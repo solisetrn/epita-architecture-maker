@@ -48,7 +48,7 @@ void destroy_args(struct arg *arg);
 void destroy_cmd(struct cmd *cmd);
 struct cmd *parse_command(int argc, char *argv[]);
 char *get_name(char *line);
-size_t get_hier(char *line);
+int get_hier(char *line);
 void print_cmd(struct cmd *cmd); //  DEBUG function
 
 // main.c
