@@ -41,7 +41,7 @@ struct tree {
 
 struct tree *init_tree(char *name);
 int add_child(struct tree *root, struct tree *child);
-struct tree *parse_file(struct file_list *l);
+struct tree *convert_to_tree(struct file_list *l);
 void destroy_tree(struct tree *root);
 
 // parser.c

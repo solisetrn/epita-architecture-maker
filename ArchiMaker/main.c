@@ -101,10 +101,11 @@ int main(int argc, char *argv[]) {
             return 1;
         }
     }
-    // memleak prevention
+    // MEMORY MANAGEMENT
     if (filename)
         free(filename);
-
+    if (cmd)
+        destroy_cmd(cmd);
 
 
     // file parsing and AST creation
@@ -119,16 +120,37 @@ int main(int argc, char *argv[]) {
     size_t n = 0;
     char *line = NULL;
     while (getline(&line, &n, file) != -1) {
-        if (strcmp(line, "\n") != 0)
-            dlist_append(l, make_node(get_name(line), get_hier(line)));
+        if (strcmp(line, "\n") != 0) {
+
+            char *name = get_name(line);
+            if (!name) {
+                // error message handled by the function
+                destroy_dlist(l);
+                free(line);
+                return 1;
+            }
+
+            struct node *node = make_node(name, get_hier(line));
+            if (!node) {
+                // error message handled by the function
+                free(name);
+                destroy_dlist(l);
+                free(line);
+                return 1;
+            }
+
+            dlist_append(l, node);
+
+        }
     }
     free(line);
+    
+    // l freed by the function below
+    struct tree *AST = convert_to_tree(l);
 
-    // MEMLEAK MANAGEMENT
-    if (cmd)
-        destroy_cmd(cmd);
-    if (l)
-        destroy_dlist(l);
+    // MEMORY MANAGEMENT
+    if (AST)
+        destroy_tree(AST);
     fclose(file);
 
     return 0;
