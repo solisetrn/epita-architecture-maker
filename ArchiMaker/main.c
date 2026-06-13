@@ -147,10 +147,11 @@ int main(int argc, char *argv[]) {
     
     // l freed by the function below
     struct tree *AST = convert_to_tree(l);
+    if (!AST)
+        return 1;
 
     // MEMORY MANAGEMENT
-    if (AST)
-        destroy_tree(AST);
+    destroy_tree(AST);
     fclose(file);
 
     return 0;

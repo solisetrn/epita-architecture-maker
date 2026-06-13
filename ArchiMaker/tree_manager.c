@@ -81,7 +81,7 @@ struct tree *convert_to_tree(struct file_list *l) {
 
         parent = curr; // setting the parent to 'curr' and making it iterate backwards until the actual parent is found
                        // (yes that does mean that setting parent to the very first file was useless but whatevs)
-        while (parent->hier != curr->hier - 1 && parent != NULL) // i'm putting '!= NULL' just this once to make this more readable
+        while (parent != NULL && parent->hier != curr->hier - 1) // i'm putting '!= NULL' just this once to make this more readable
             parent = parent->prev;
 
         if (!parent) {
