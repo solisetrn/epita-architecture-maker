@@ -16,7 +16,7 @@ struct tree *init_tree(char *name) {
 
 int add_child(struct tree *root, struct tree *child) {
 
-    if (root->childN == FILENAME)
+    if (root->childN == 0) // if we add a file into another, it means the file was a directory (simple as that)
         root->type = DIRECTORY;
 
     root->children = realloc(root->children, (root->childN + 1) * sizeof(struct tree));
@@ -120,7 +120,7 @@ struct tree *convert_to_tree(struct file_list *l) {
     if (l)
         destroy_dlist(l);
 
-    return root; // you have no idea how good it felt typing this
+    return root; // you have no idea how good it felt typing this (and it worked on the first try)
 
 }
 

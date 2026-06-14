@@ -14,11 +14,11 @@ void display_helper() {
     fprintf(stdout, "        -f <filename>         to change the architecture config file, 'Archifile' by default.\n");
     fflush(stdout);
     fprintf(stdout, "                              If no file named 'Archifile' is found and no target is specified, ArchiMaker will create a fresh empty one.\n");
+    fflush(stdout);
     // -d, --dest
     fprintf(stdout, "        -d, --dest <filename> to change the destination directory, working directory by default.\n");
     fflush(stdout);
 
-    fflush(stdout);
     fprintf(stdout, "\nArchimaker DOES create an empty 'README' file and empty '.gitignore' file for you. Don't forget to edit them later.\n");
     fflush(stdout);
 
