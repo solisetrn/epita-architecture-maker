@@ -54,7 +54,8 @@ struct tree *DFS(struct tree *root, char *name) {
 struct tree *convert_to_tree(struct file_list *l) {
 
     if (!l->head) { // empty dlist
-        fprintf(stderr, "ArchiMaker: *** Couldn't fetch the file architecture correctly, it must be pasted in 'Archifile' or a specified file using '-f'. Abort.\n");
+        fprintf(stderr,
+                "ArchiMaker: *** Couldn't fetch the file architecture correctly, it must be pasted in 'Archifile' or a specified file using '-f'. Abort.\n");
         fflush(stderr);
         destroy_dlist(l);
         return NULL;

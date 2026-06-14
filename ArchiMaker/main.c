@@ -127,6 +127,7 @@ int main(int argc, char *argv[]) {
                 destroy_cmd(cmd);
                 if (dest_dir)
                     free(dest_dir);
+                fclose(file);
                 return 1;
             }
 
@@ -149,12 +150,14 @@ int main(int argc, char *argv[]) {
             fprintf(stderr, "ArchiMaker: %s is not a valid directory. Abort.\n", dest_dir);
             fflush(stderr);
             free(dest_dir);
+            fclose(file);
             return 1;
         }
         else if (!directory) {
             fprintf(stderr, "ArchiMaker: Couldn't open %s. Abort.\n", dest_dir);
             fflush(stderr);
             free(dest_dir);
+            fclose(file);
             return 1;
         }
 
@@ -171,6 +174,7 @@ int main(int argc, char *argv[]) {
     if (!l) {
         fprintf(stderr, "ArchiMaker: *** Failed to allocate memory for object: struct file_list. Abort.\n");
         fflush(stderr);
+        fclose(file);
         return 1;
     }
 
@@ -184,6 +188,7 @@ int main(int argc, char *argv[]) {
                 // error message handled by the function
                 destroy_dlist(l);
                 free(line);
+                fclose(file);
                 return 1;
             }
 
@@ -193,6 +198,7 @@ int main(int argc, char *argv[]) {
                 free(name);
                 destroy_dlist(l);
                 free(line);
+                fclose(file);
                 return 1;
             }
 
@@ -201,6 +207,9 @@ int main(int argc, char *argv[]) {
         }
     }
     free(line);
+    fclose(file);
+
+    print_dlist(l);
     
     // l freed by the function below
     struct tree *AST = convert_to_tree(l);
@@ -208,11 +217,14 @@ int main(int argc, char *argv[]) {
         return 1;
     AST->type = ROOT; // helps to ignore the root
 
-    make_items(AST, dest_dir); // literally builds EVERYTHING
+    if (make_items(AST, dest_dir) != 0) { // literally builds EVERYTHING
+        // error message handled by the function
+        destroy_tree(AST);
+        return 1;
+    }
 
     // MEMORY MANAGEMENT
     destroy_tree(AST);
-    fclose(file);
 
     fprintf(stdout, "\nAll done! Thanks for using ArchiMaker!\n");
     fflush(stdout);
