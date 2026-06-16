@@ -19,7 +19,7 @@ void display_helper() {
     fflush(stdout);
 
     fflush(stdout);
-    fprintf(stdout, "\nArchimaker DOES create an empty 'README' file and empty '.gitignore' file for you. Don't forget to edit them later.\n");
+    fprintf(stdout, "\nArchimaker DOES create an empty 'README' file and a full '.gitignore' file for you. Feel free to edit them later.\n");
     fflush(stdout);
 
     fprintf(stdout, "ArchiMaker was designed to handle error to some extent. However, it still assumes you pasted the given file architecture correctly.\n");

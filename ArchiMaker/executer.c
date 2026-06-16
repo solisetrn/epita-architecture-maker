@@ -116,6 +116,23 @@ int make_items(struct tree *root, char *prefix) {
     if (executer(root, add_path(prefix, root->name)) != 0)
         return 1;
 
+    if (strcmp(root->name, ".gitignore") == 0) {
+
+        char *temp = add_path(prefix, ".gitignore");
+        if (!temp)
+            return 1;
+
+        FILE *file = fopen(temp, "a");
+        free(temp);
+        if (!file)
+            return 1;
+
+        fprintf(file, "*.a\n*.lib\n*.o\n*.obj\n*.out\n\n.idea/\n*~\n*.DotSettings.user\n*.swp\n");
+        fflush(file);
+        fclose(file);
+
+    }
+
     for (size_t i = 0; i < root->childN; i++) {
         char *temp = add_path(prefix, root->name);
         if (!temp)
