@@ -69,7 +69,7 @@ int executer(struct tree *root, char *name) {
             fprintf(stdout, "Creating %s directory...\n", name);
             fflush(stdout);
             char *argv[3] = { "mkdir", name, NULL };
-            if (execvp(argv[0], argv) == -1) {
+            if (execvp(argv[0], argv) != 0) {
                 fprintf(stderr, "ArchiMaker: Couldn't create directory: %s. Abort.\n", name);
                 fflush(stderr);
                 exit(1);
@@ -79,7 +79,7 @@ int executer(struct tree *root, char *name) {
             fprintf(stdout, "Creating %s file...\n", name);
             fflush(stdout);
             char *argv[3] = { "touch", name, NULL };
-            if (execvp(argv[0], argv) == -1) {
+            if (execvp(argv[0], argv) != 0) {
                 fprintf(stderr, "ArchiMaker: Couldn't create file: %s. Abort.\n", name);
                 fflush(stderr);
                 exit(1);
