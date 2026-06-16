@@ -208,7 +208,11 @@ int main(int argc, char *argv[]) {
         return 1;
     AST->type = ROOT; // helps to ignore the root
 
-    make_items(AST, dest_dir); // literally builds EVERYTHING
+    if (make_items(AST, dest_dir) != 0) { // literally builds EVERYTHING
+        destroy_tree(AST);
+        fclose(file);
+        return 1;
+    }
 
     // MEMORY MANAGEMENT
     destroy_tree(AST);
