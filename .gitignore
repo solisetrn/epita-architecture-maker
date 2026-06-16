@@ -58,4 +58,4 @@ dkms.conf
 *.swp
 Archifile
 debug
-/bin/bash: line 1: q: command not found
+*/tests/
