@@ -7,7 +7,7 @@ RM = rm -f
 all: ${FILES}
 	${CC} ${FILES} -o ArchiMaker ${CFLAGS} ${DEBUG}
 
-reset:
+reset: clean
 	rm -rf tests/
 	mkdir tests/
 	clear
